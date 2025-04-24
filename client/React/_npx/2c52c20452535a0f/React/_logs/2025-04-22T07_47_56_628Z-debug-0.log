@@ -1,0 +1,19 @@
+0 verbose cli C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.8.2
+2 info using node@v18.20.8
+3 silly config load:file:C:\Users\LENOVO\AppData\Local\nvm\v18.20.8\node_modules\npm\npmrc
+4 silly config load:file:d:\DigiTechSolutions\22april_task_CRUD\server\.npmrc
+5 silly config load:file:C:\Users\LENOVO\.npmrc
+6 silly config load:file:d:\DigiTechSolutions\22april_task_CRUD\server\etc\npmrc
+7 verbose title npm ls
+8 verbose argv "ls" "--omit" "dev" "--package-lock-only" "--json" "--prefix" "d:/DigiTechSolutions/22april_task_CRUD/server"
+9 verbose logfile logs-max:10 dir:d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-04-22T07_47_56_628Z-
+10 verbose logfile d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-04-22T07_47_56_628Z-debug-0.log
+11 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+12 silly logfile done cleaning log files
+13 verbose cwd d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f
+14 verbose os Windows_NT 10.0.22631
+15 verbose node v18.20.8
+16 verbose npm  v10.8.2
+17 verbose exit 0
+18 info ok

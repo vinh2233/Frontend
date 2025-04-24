@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "create-umi": "^4.4.8"
+  },
+  "_npx": {
+    "packages": [
+      "create-umi@latest"
+    ]
+  }
+}
