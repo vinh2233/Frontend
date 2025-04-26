@@ -1,0 +1,35 @@
+.registry-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('../../assets/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .registry-card {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .registry-title {
+    text-align: center;
+    color: #1890ff;
+  }
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50px); /* Bắt đầu từ bên trái */
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0); /* Kết thúc tại vị trí ban đầu */
+    }
+  }
+  
+  .registry-card {
+    animation: slideIn 1s ease-in-out;
+  }

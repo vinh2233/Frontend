@@ -1,23 +1,28 @@
+// export default Login;
 import React from 'react';
-import { Card, Row, Col, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Card, Typography } from 'antd';
+import { Link } from '@umijs/max';
+import './Login.css';
 import useLogin from './useLogin';
 import LoginForm from '@/components/Login/LoginForm';
-
 const Login = () => {
-  const { handleLogin } = useLogin(); // Sử dụng logic từ useLogin
+  const { handleLogin } = useLogin();
+
+  const onFinish = (values: any) => {
+    console.log('Form values:', values); // Log dữ liệu form
+    handleLogin(values); // Gọi hàm handleLogin khi submit form
+  };
 
   return (
-    <Row justify="center" align="middle" style={{ minHeight: '100vh' }}>
-      <Col xs={24} sm={20} md={12} lg={8}>
-        <Card title="Login" bordered={false}>
-          <LoginForm onSubmit={handleLogin} /> {/* Sử dụng component LoginForm */}
-          <Typography.Text>
-            Bạn chưa có tài khoản? <Link to="/registry">Đăng ký</Link>
-          </Typography.Text>
-        </Card>
-      </Col>
-    </Row>
+    <div className="login-container">
+      <Card className="login-card">
+        <Typography.Title level={3} className="login-title">Đăng nhập</Typography.Title>
+        <LoginForm onFinish={onFinish} />
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+          Chưa có tài khoản? <Link to="/registry">Đăng ký</Link>
+        </div>
+      </Card>
+    </div>
   );
 };
 

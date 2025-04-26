@@ -7,16 +7,13 @@ const useLogin = () => {
 
   const handleLogin = async (values: any) => {
     try {
-      const response = await login(values); // Gọi API từ service
-      if (response.success) {
-        localStorage.setItem('token', response.data.token); // Lưu token vào localStorage
-        message.success('Đăng nhập thành công');
-        navigate('/home'); // Điều hướng đến trang Home
-      } else {
-        message.error(response.message || 'Đăng nhập thất bại');
+      const user = await login(values); // Gọi hàm login
+      if (user) {
+        message.success(`Chào mừng ${user.name}! Đăng nhập thành công.`);
+        navigate('/home'); // Điều hướng đến giao diện chính
       }
     } catch (error: any) {
-      message.error(error.response?.data?.message || 'Đăng nhập thất bại');
+      message.error(error.message || 'Đăng nhập thất bại'); // Hiển thị thông báo lỗi
     }
   };
 

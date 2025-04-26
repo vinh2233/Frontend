@@ -1,26 +1,38 @@
+// export default LoginForm;
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 
-const LoginForm = ({ onSubmit }: { onSubmit: (values: any) => void }) => {
+interface LoginFormProps {
+  onFinish: (values: any) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
   return (
-    <Form onFinish={onSubmit} layout="vertical">
+    <Form
+      name="login"
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      layout="vertical"
+    >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please enter your username' }]}
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
       >
-        <Input />
+        <Input placeholder="Nhập email của bạn" />
       </Form.Item>
+
       <Form.Item
-        label="Password"
+        label="Mật khẩu"
         name="password"
-        rules={[{ required: true, message: 'Please enter your password' }]}
+        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Nhập mật khẩu của bạn" />
       </Form.Item>
+
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
-          Login
+          Đăng nhập
         </Button>
       </Form.Item>
     </Form>

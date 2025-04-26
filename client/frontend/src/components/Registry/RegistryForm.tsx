@@ -1,35 +1,37 @@
-import { Button, Form, Input } from 'antd';
 
-const RegistryForm = ({ onSubmit }: { onSubmit: (values: any) => void }) => {
+
+// export default RegistryForm;
+import React from 'react';
+import { Form, Input, Button } from 'antd';
+
+interface RegistryFormProps {
+  onFinish: (values: any) => void;
+}
+
+const RegistryForm: React.FC<RegistryFormProps> = ({ onFinish }) => {
   return (
-    <Form onFinish={onSubmit} layout="vertical">
+    <Form onFinish={onFinish} layout="vertical">
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: 'Please enter your username' }]}
+        rules={[{ required: true, message: 'Vui lòng nhập tên người dùng!' }]}
       >
-        <Input />
+        <Input placeholder="Username" />
       </Form.Item>
-
       <Form.Item
         label="Email"
         name="email"
-        rules={[
-          { required: true, message: 'Please enter your email' },
-          { type: 'email', message: 'Please enter a valid email address' },
-        ]}
+        rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
       >
-        <Input />
+        <Input placeholder="Email" />
       </Form.Item>
-
       <Form.Item
         label="Password"
-        name="password" 
-        rules={[{ required: true, message: 'Please enter your password' }]}
+        name="password"
+        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Password" />
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
           Register

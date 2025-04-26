@@ -7,15 +7,13 @@ const useRegistry = () => {
 
   const handleRegister = async (values: any) => {
     try {
-      const response = await register(values);
-      if (response.success) {
+      const user = await register(values); // Gọi hàm register
+      if (user) {
         message.success('Đăng ký thành công!');
-        navigate('/login');
-      } else {
-        message.error(response.message || 'Đăng ký thất bại');
+        navigate('/login'); // Điều hướng đến giao diện đăng nhập
       }
     } catch (error: any) {
-      message.error(error.response?.data?.message || 'Đăng ký thất bại');
+      message.error(error.message || 'Đăng ký thất bại'); // Hiển thị thông báo lỗi
     }
   };
 

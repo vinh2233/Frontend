@@ -1,23 +1,29 @@
+
 import React from 'react';
-import { Card, Row, Col, Typography } from 'antd';
+import { Card, Typography } from 'antd';
+import { Link } from '@umijs/max';
 import useRegistry from './useRegistry';
 import RegistryForm from '@/components/Registry/RegistryForm';
-import { Link } from '@umijs/max';
+import './Registry.css';
 
 const Registry = () => {
   const { handleRegister } = useRegistry();
 
+  const onFinish = (values: any) => {
+    console.log('Form values:', values); // Log dữ liệu form
+    handleRegister(values); // Gọi hàm handleRegister khi submit form
+  };
+
   return (
-    <Row justify="center" align="middle" style={{ minHeight: '100vh' }}>
-      <Col xs={24} sm={20} md={12} lg={8}>
-        <Card title="Register" bordered={false}>
-          <RegistryForm onSubmit={handleRegister} />
-          <Typography.Text>
-            Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
-          </Typography.Text>
-        </Card>
-      </Col>
-    </Row>
+    <div className="registry-container">
+      <Card className="registry-card">
+        <Typography.Title level={3} className="registry-title">Register</Typography.Title>
+        <RegistryForm onFinish={onFinish} />
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+          Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
+        </div>
+      </Card>
+    </div>
   );
 };
 

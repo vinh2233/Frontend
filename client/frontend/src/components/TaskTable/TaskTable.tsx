@@ -7,20 +7,20 @@ const TaskTable = ({ tasks, onRowClick }: { tasks: any[]; onRowClick: (id: numbe
       title: '#',
       dataIndex: 'id',
       key: 'id',
-      render: (text: any) => <strong>{text}</strong>,
+      render: (text: any) => (<strong>{text}</strong>),
     },
     {
-      title: 'Loại',
+      title: 'Task Type',
       dataIndex: 'type',
       key: 'type',
     },
     {
-      title: 'Tên',
+      title: 'Task name',
       dataIndex: 'name',
       key: 'name',
       render: (text: any, record: any) => (
         <span
-          style={{ color: 'blue', cursor: 'pointer' }}
+          style={{ color: '#25700e', cursor: 'pointer' ,textDecoration: 'underline' }}
           onClick={() => onRowClick(record.id)}
         >
           {text}
@@ -28,13 +28,14 @@ const TaskTable = ({ tasks, onRowClick }: { tasks: any[]; onRowClick: (id: numbe
       ),
     },
     {
-      title: 'Trạng thái',
+      title: 'Status',
       dataIndex: 'status',
       key: 'status',
       render: (status: string) => (
         <span
           style={{
-            color: status === 'DONE' ? 'green' : status === 'IN PROGRESS' ? 'orange' : 'red',
+            color: status === 'DONE' ? 'green' : status === 'in-progress' ? 'orange' : 'red',
+            textTransform: 'capitalize'
           }}
         >
           {status}
@@ -42,13 +43,13 @@ const TaskTable = ({ tasks, onRowClick }: { tasks: any[]; onRowClick: (id: numbe
       ),
     },
     {
-      title: 'Độ ưu tiên',
+      title: 'Priority',
       dataIndex: 'priority',
       key: 'priority',
       render: (priority: string) => (
         <span
           style={{
-            color: priority === 'High' ? 'red' : priority === 'Medium' ? 'blue' : 'gray',
+            color: priority === 'High' ? 'red' : priority === 'Medium' ? 'blue' : 'gray',textTransform: 'capitalize'
           }}
         >
           {priority}
@@ -56,18 +57,18 @@ const TaskTable = ({ tasks, onRowClick }: { tasks: any[]; onRowClick: (id: numbe
       ),
     },
     {
-      title: 'Giao cho',
+      title: 'Assignee',
       dataIndex: 'assignee',
       key: 'assignee',
     },
     {
-      title: 'Thời gian ước tính',
+      title: 'Estimated time',
       dataIndex: 'estimatedTime',
       key: 'estimatedTime',
       render: (time: number) => `${time} giờ`,
     },
     {
-      title: 'Ngày ước tính',
+      title: 'Estimated date',
       dataIndex: 'startDate',
       key: 'estimatedDate',
     },
