@@ -9,7 +9,7 @@ const useLogin = () => {
     try {
       const user = await login(values); // Gọi hàm login
       if (user) {
-        message.success(`Chào mừng ${user.name}! Đăng nhập thành công.`);
+        message.success(`Đăng nhập thành công.`);
         navigate('/home'); // Điều hướng đến giao diện chính
       }
     } catch (error: any) {

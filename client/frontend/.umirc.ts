@@ -35,7 +35,13 @@ export default defineConfig({
     {
       path: '/task',
       component: './Task',
-    }
+    },{
+      path: '/forgot-password',
+      component: '@/pages/ForgotPassword',
+    },{
+      path: '/reset-password',
+      component: '@/pages/ResetPassword',
+    },
   ],
   npmClient: 'npm',
 });

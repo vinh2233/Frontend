@@ -21,6 +21,9 @@ const Login = () => {
         <div style={{ textAlign: 'center', marginTop: '10px' }}>
           Chưa có tài khoản? <Link to="/registry">Đăng ký</Link>
         </div>
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+       <Link to="/forgot-password">Quên mật khẩu</Link>
+        </div>
       </Card>
     </div>
   );

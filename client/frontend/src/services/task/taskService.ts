@@ -1,5 +1,5 @@
 
-const backendUrl = 'http://192.168.50.227:5001/api/v1/tasks';
+const backendUrl = 'http://192.168.50.227:3000/tasks';
 
 export const fetchTasks = async () => {
   const accessToken = localStorage.getItem('accessToken'); // Lấy accessToken từ localStorage
@@ -13,7 +13,7 @@ export const fetchTasks = async () => {
     throw new Error('Username is missing');
   }
 
-  const response = await fetch(`${backendUrl}/getAll`, {
+  const response = await fetch(`${backendUrl}/Alltasks`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`, // Gửi accessToken trong header
