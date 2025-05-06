@@ -1,7 +1,3 @@
-
-// export default TaskActivity;
-
-
 import React, { useState } from 'react';
 import { Tabs, Input, Button, List } from 'antd';
 
@@ -13,14 +9,18 @@ interface TaskActivityProps {
   onCommentsChange: (data: string[]) => void;
 }
 
-const TaskActivity: React.FC<TaskActivityProps> = ({ onCommentsChange }) => {
-  const [comments, setComments] = useState<string[]>([]);
+interface TaskActivityProps {
+  taskId: number;
+  comments: string[];          // <-- thêm dòng này
+  onCommentsChange: (data: string[]) => void;
+}
+
+const TaskActivity: React.FC<TaskActivityProps> = ({ comments, onCommentsChange }) => {
   const [newComment, setNewComment] = useState<string>('');
 
   const handleAddComment = () => {
     const updatedComments = [...comments, newComment];
-    setComments(updatedComments);
-    onCommentsChange(updatedComments); // Gửi danh sách comment lên `index.tsx`
+    onCommentsChange(updatedComments);
     setNewComment('');
   };
 
@@ -45,5 +45,6 @@ const TaskActivity: React.FC<TaskActivityProps> = ({ onCommentsChange }) => {
     </Tabs>
   );
 };
+
 
 export default TaskActivity;

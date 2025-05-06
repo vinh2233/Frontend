@@ -11,14 +11,14 @@ const useHome = () => {
   useEffect(() => {
     const loadTasks = async () => {
       try {
-        const data = await fetchTasks(); // Gọi API để lấy danh sách task
-        console.log('Tasks fetched:', data); // Kiểm tra dữ liệu trả về từ API
-        setTasks(data); // Cập nhật state
+        const data = await fetchTasks();
+        console.log('Tasks fetched:', data); // Log the fetched tasks
+        setTasks(data);
       } catch (error: any) {
         console.error('Error fetching tasks:', error);
         if (error.message.includes('Unauthorized')) {
           message.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-          navigate('/login'); // Điều hướng về trang đăng nhập
+          navigate('/login');
         } else {
           message.error('Lỗi khi tải danh sách công việc');
         }

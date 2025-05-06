@@ -2,7 +2,7 @@
 // export default TaskPage;
 
 import { Button, Card, Col, Row, Space, message } from 'antd';
-import { useState, useEffect } from 'react';
+import { useState, } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TaskActivity from '@/components/TaskTable/TaskActivity';
 import TaskDetails from '@/components/TaskTable/TaskDetails';
@@ -13,7 +13,7 @@ const TaskPage = () => {
   const { id } = useParams<{ id: string }>(); // Lấy id từ URL
   const navigate = useNavigate();
   const [formData, setFormData] = useState<any>({ name: '', description: '' }); // Giá trị mặc định
-  const [comments, setComments] = useState<string[]>([]);
+  const [, setComments] = useState<string[]>([]);
   const [details, setDetails] = useState<any>({
     status: 'New',
     priority: 'Normal',
@@ -24,69 +24,41 @@ const TaskPage = () => {
   }); // Giá trị mặc định
   const isEditMode = !!id; // Kiểm tra nếu có ID thì là chế độ chỉnh sửa
 
-  useEffect(() => {
-    const fetchTaskDetails = async () => {
-      if (!id) return; // Nếu không có ID, không cần tải dữ liệu
-      try {
-        const response = await axios.get(`/api/tasks/${id}`);
-        if (response.data.success) {
-          const task = response.data.data;
-          setFormData({ 
-            name: task.name || '', 
-            description: task.description || '',
-            type: task.type || '',});
-          setDetails({
-            status: task.status || 'New',
-            priority: task.priority || 'Normal',
-            assignee: task.assignee || '',
-            startDate: task.startDate || null,
-            endDate: task.endDate || null,
-            labels: task.labels || [],
-            estimatedTime: task.estimatedTime || null,
-          });
-          setComments(task.comments || []);
-        } else {
-          message.error('Không thể tải thông tin task');
-        }
-      } catch (error) {
-        console.error('Error fetching task details:', error);
-        message.error('Lỗi khi tải thông tin task');
-      }
-    };
-
-    fetchTaskDetails();
-  }, [id]);
+  
 
   const handleSaveOrUpdate = async () => {
     try {
+      const requestBody = {
+        name: formData.name,
+        description: formData.description,
+        type_id: formData.type,
+        status_id: details.status,
+        priority_id: details.priority,
+        time_start: details.startDate,
+        time_stop: details.endDate,
+      };
+  
       if (isEditMode) {
-        // Cập nhật task
-        const response = await axios.put(`/api/tasks/${id}`, {
-          ...formData,
-          ...details,
-          comments,
-        });
+        // Update task
+        const response = await axios.put(`/api/tasks/${id}`, requestBody);
         console.log('Task updated:', response.data);
         message.success('Cập nhật thông tin thành công!');
       } else {
-        // Tạo mới task
-        const response = await axios.post('/api/tasks', {
-          ...formData,
-          ...details,
-          comments,
-        });
+        // Create new task
+        const response = await axios.post('/api/tasks', requestBody);
         console.log('Task created:', response.data);
         message.success('Tạo task thành công!');
       }
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error('Lỗi khi lưu thông tin:', error);
       message.error('Lưu thông tin thất bại!');
     }
   };
+  
 
   const handleCancel = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   return (
@@ -96,7 +68,7 @@ const TaskPage = () => {
           {/* Truyền formData vào TaskForm */}
           <TaskForm onChange={(data: any) => setFormData(data)} initialValues={formData} />
           {/* Truyền comments vào TaskActivity */}
-          <TaskActivity taskId={Number(id)} onCommentsChange={(data: string[]) => setComments(data)} />
+          <TaskActivity taskId={Number(id)} onCommentsChange={(data: string[]) => setComments(data)} comments={[]} />
         </Col>
         <Col span={8}>
           {/* Truyền details vào TaskDetails */}

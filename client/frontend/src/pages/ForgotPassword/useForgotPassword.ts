@@ -30,13 +30,17 @@ const useForgotPassword = () => {
     try {
       const result = await forgotPassword(values.email); // Gọi API quên mật khẩu
 
+      if (!result || !result.success) {
+        throw new Error('Không nhận được phản hồi thành công từ API');
+      }
+
       // Hiển thị thông báo từ phản hồi
       message.success(result.message || 'OTP đã được gửi đến email của bạn!');
 
       // Điều hướng đến trang reset-password
       navigate('/reset-password');
     } catch (error: any) {
-      // Hiển thị thông báo lỗi chi tiết
+      console.error('Error during forgot password:', error.message); // Ghi lại lỗi vào console
       message.error(error.message || 'Gửi OTP thất bại');
     }
   };

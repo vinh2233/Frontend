@@ -1,4 +1,4 @@
-import { message } from 'antd';
+// import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { register } from '@/services/authService/authService';
 
@@ -8,12 +8,12 @@ const useRegistry = () => {
   const handleRegister = async (values: any) => {
     try {
       const user = await register(values); // Gọi hàm register
-      if (user) {
-        message.success('Đăng ký thành công!');
-        navigate('/login'); // Điều hướng đến giao diện đăng nhập
-      }
-    } catch (error: any) {
-      message.error(error.message || 'Đăng ký thất bại'); // Hiển thị thông báo lỗi
+      console.log('User registered:', user);
+  
+      // Điều hướng đến trang login
+      navigate('/login'); // Sử dụng hook `useNavigate` từ React Router
+    } catch (error) {
+      console.error('Error during registration:', error);
     }
   };
 

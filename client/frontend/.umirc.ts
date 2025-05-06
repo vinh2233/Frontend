@@ -12,7 +12,7 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/home', // Chuyển hướng từ "/" đến "/home"
+      redirect: '/login', 
     },
     {
       // name: 'Home',
@@ -35,10 +35,12 @@ export default defineConfig({
     {
       path: '/task',
       component: './Task',
-    },{
+    },
+    {
       path: '/forgot-password',
       component: '@/pages/ForgotPassword',
-    },{
+    },
+    {
       path: '/reset-password',
       component: '@/pages/ResetPassword',
     },

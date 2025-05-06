@@ -1,29 +1,46 @@
 
-
-// export default TaskDetails;
-
-
-import React, { useEffect } from 'react';
-import { Form, Select, DatePicker, Input, InputNumber } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Select, DatePicker, InputNumber } from 'antd';
 import dayjs from 'dayjs';
+import { fetchDropdownData } from '@/services/task/taskService'; // Import hàm từ taskService
 
 const TaskDetails = ({
   taskId,
   onDetailsChange,
   initialValues,
 }: {
-  taskId: number; // taskId được giữ lại để index.tsx sử dụng
+  taskId: number;
   onDetailsChange: (data: any) => void;
   initialValues: any;
 }) => {
   const [form] = Form.useForm();
 
-  // Đồng bộ giá trị form khi `initialValues` thay đổi
+  // State để lưu danh sách status, priority, và labels từ backend
+  const [statuses, setStatuses] = useState([]);
+  const [priorities, setPriorities] = useState([]);
+  const [labels, setLabels] = useState([]);
+
+  // Fetch dữ liệu từ backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { statuses, priorities, labels } = await fetchDropdownData(); // Gọi hàm từ taskService
+        setStatuses(statuses);
+        setPriorities(priorities);
+        setLabels(labels);
+      } catch (error) {
+        console.error('Error fetching dropdown data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     form.setFieldsValue({
       ...initialValues,
-      startDate: initialValues.startDate ? dayjs(initialValues.startDate) : null,
-      endDate: initialValues.endDate ? dayjs(initialValues.endDate) : null,
+      time_start: initialValues.time_start ? dayjs(initialValues.time_start) : null,
+      time_stop: initialValues.time_stop ? dayjs(initialValues.time_stop) : null,
     });
   }, [initialValues]);
 
@@ -31,9 +48,9 @@ const TaskDetails = ({
     const values = form.getFieldsValue();
     onDetailsChange({
       ...values,
-      startDate: values.startDate ? values.startDate.toISOString() : null,
-      endDate: values.endDate ? values.endDate.toISOString() : null,
-    }); // Gửi dữ liệu form lên `index.tsx`
+      time_start: values.time_start ? values.time_start.toISOString() : null,
+      time_stop: values.time_stop ? values.time_stop.toISOString() : null,
+    });
   };
 
   return (
@@ -43,46 +60,48 @@ const TaskDetails = ({
       onValuesChange={handleFormChange}
       initialValues={{
         ...initialValues,
-        startDate: initialValues.startDate ? dayjs(initialValues.startDate) : null,
-        endDate: initialValues.endDate ? dayjs(initialValues.endDate) : null,
-      }} // Đặt giá trị mặc định
+        time_start: initialValues.time_start ? dayjs(initialValues.time_start) : null,
+        time_stop: initialValues.time_stop ? dayjs(initialValues.time_stop) : null,
+      }}
     >
-      <p>Task ID: {taskId}</p> {/* Hiển thị taskId nếu cần */}
-      <Form.Item label="Status" name="status" rules={[{ required: true, message: 'Status is required' }]}>
-        <Select>
-          <Select.Option value="New">New</Select.Option>
-          <Select.Option value="InProgress">In Progress</Select.Option>
-          <Select.Option value="Done">Done</Select.Option>
+      <p>Task ID: {taskId}</p>
+      <Form.Item label="Status" name="status_id" rules={[{ required: true, message: 'Status is required' }]}>
+        <Select placeholder="Select status">
+          {statuses.map((status: any) => (
+            <Select.Option key={status.label} value={status.label}>
+              {status.name}
+            </Select.Option>
+          ))}
         </Select>
       </Form.Item>
-      <Form.Item label="Priority" name="priority" rules={[{ required: true, message: 'Priority is required' }]}>
-        <Select>
-          <Select.Option value="Low">Low</Select.Option>
-          <Select.Option value="Medium">Normal</Select.Option>
-          <Select.Option value="High">High</Select.Option>
+      <Form.Item label="Priority" name="priority_id" rules={[{ required: true, message: 'Priority is required' }]}>
+        <Select placeholder="Select priority">
+          {priorities.map((priority: any) => (
+            <Select.Option key={priority.label} value={priority.label}>
+              {priority.name}
+            </Select.Option>
+          ))}
         </Select>
       </Form.Item>
-      <Form.Item label="Assignee" name="assignee">
+      {/* <Form.Item label="Assignee" name="assignee">
         <Input />
-      </Form.Item>
-      <Form.Item label="Estimated Start Date" name="startDate">
+      </Form.Item> */}
+      <Form.Item label="Estimated Start Date" name="time_start">
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
-      <Form.Item label="Estimated End Date" name="endDate">
+      <Form.Item label="Estimated End Date" name="time_stop">
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
-      <Form.Item
-        label="Estimated Time"
-        name="estimatedTime"
-        // rules={[{ required: true, message: 'Please enter the estimated time' }]}
-      >
+      <Form.Item label="Estimated Time" name="estimatedTime">
         <InputNumber min={0} addonAfter="Hours" style={{ width: '100%' }} />
       </Form.Item>
-      <Form.Item label="Labels" name="labels">
+      <Form.Item label="Labels" name="label_id">
         <Select mode="tags" placeholder="Add labels">
-          <Select.Option value="Bug">Bug</Select.Option>
-          <Select.Option value="Feature">Feature</Select.Option>
-          <Select.Option value="Research">Research</Select.Option>
+          {labels.map((label: any) => (
+            <Select.Option key={label.label} value={label.label}>
+              {label.name}
+            </Select.Option>
+          ))}
         </Select>
       </Form.Item>
     </Form>

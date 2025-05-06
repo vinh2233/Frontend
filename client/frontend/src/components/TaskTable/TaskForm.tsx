@@ -1,33 +1,77 @@
-// import React from 'react';
-// import { Form, Input, Select } from 'antd';
 
+// import React, { useEffect, useState } from 'react';
+// import { Form, Input, Select } from 'antd';
+// import { fetchDropdownData } from '@/services/task/taskService'; // Import API
 // const { Option } = Select;
 
-// const TaskForm = ({ formData, onChange }: { formData: any; onChange: (data: any) => void }) => {
+// const TaskForm = ({
+//   onChange,
+//   initialValues,
+// }: {
+//   onChange: (data: any) => void;
+//   initialValues: any;
+// }) => {
+//   const [form] = Form.useForm();
+//   const [taskTypes, setTaskTypes] = useState<{ value: string; label: string }[]>([]);
+
+//   // Gọi API để lấy taskTypes
+//   useEffect(() => {
+//     const loadTaskTypes = async () => {
+//       try {
+//         const dropdownData = await fetchDropdownData();
+//         setTaskTypes(dropdownData.taskTypes); // Lưu taskTypes vào state
+//       } catch (error) {
+//         if (error instanceof Error) {
+//           console.error('Error fetching task types:', error.message);
+//         } else {
+//           console.error('Error fetching task types:', error);
+//         }
+//       }
+//     };
+
+//     loadTaskTypes();
+//   }, []);
+
+//   useEffect(() => {
+//     form.setFieldsValue(initialValues);
+//   }, [initialValues]);
+
+//   const handleFormChange = () => {
+//     const values = form.getFieldsValue();
+//     onChange(values);
+//   };
+
 //   return (
-//     <Form layout="vertical" onValuesChange={onChange} initialValues={formData}>
+//     <Form
+//       form={form}
+//       layout="vertical"
+//       onValuesChange={handleFormChange}
+//       initialValues={initialValues}
+//     >
+//       <Form.Item
+//         label="Task Type"
+//         name="type_id"
+//         rules={[{ required: true, message: 'Please select a task type' }]}
+//       >
+//         <Select placeholder="Select task type">
+//           {taskTypes.map((taskType) => (
+//             <Option key={taskType.value} value={taskType.value}>
+//               {taskType.label}
+//             </Option>
+//           ))}
+//         </Select>
+//       </Form.Item>
 //       <Form.Item
 //         label="Task Name"
 //         name="name"
-//         rules={[{ required: true, message: 'Please enter the task name' }]}
+//         rules={[{ required: true, message: 'Task Name is required' }]}
 //       >
 //         <Input />
 //       </Form.Item>
 //       <Form.Item
-//         label="Task Type"
-//         name="type"
-//         rules={[{ required: true, message: 'Please select a task type' }]}
-//       >
-//         <Select placeholder="Select task type">
-//           <Option value="task">Task</Option>
-//           <Option value="bug">Bug</Option>
-//           <Option value="subtask">Subtask</Option>
-//         </Select>
-//       </Form.Item>
-//       <Form.Item
 //         label="Description"
 //         name="description"
-//         rules={[{ required: true, message: 'Please enter the description' }]}
+//         rules={[{ required: true, message: 'Description is required' }]}
 //       >
 //         <Input.TextArea rows={4} />
 //       </Form.Item>
@@ -37,8 +81,10 @@
 
 // export default TaskForm;
 
-import React, { useEffect } from 'react';
+///////////////////////////////////////
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Select } from 'antd';
+import { fetchDropdownData } from '@/services/task/taskService'; // Import API
 const { Option } = Select;
 
 const TaskForm = ({
@@ -49,15 +95,29 @@ const TaskForm = ({
   initialValues: any;
 }) => {
   const [form] = Form.useForm();
+  const [taskTypes, setTaskTypes] = useState<{ value: number; label: string }[]>([]);
 
-  // Cập nhật giá trị form khi `initialValues` thay đổi
+  // Gọi API để lấy taskTypes
+  useEffect(() => {
+    const loadTaskTypes = async () => {
+      try {
+        const dropdownData = await fetchDropdownData();
+        setTaskTypes(dropdownData.taskTypes); // Lưu taskTypes vào state
+      } catch (error) {
+        console.error('Error fetching task types:', error);
+      }
+    };
+
+    loadTaskTypes();
+  }, []);
+
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues]);
 
   const handleFormChange = () => {
     const values = form.getFieldsValue();
-    onChange(values); // Gửi dữ liệu form lên `index.tsx`
+    onChange(values);
   };
 
   return (
@@ -65,23 +125,33 @@ const TaskForm = ({
       form={form}
       layout="vertical"
       onValuesChange={handleFormChange}
-      initialValues={initialValues} // Đặt giá trị mặc định
+      initialValues={initialValues}
     >
       <Form.Item
         label="Task Type"
-        name="type"
+        name="type_id"
         rules={[{ required: true, message: 'Please select a task type' }]}
       >
         <Select placeholder="Select task type">
-          <Option value="task">Task</Option>
-          <Option value="bug">Bug</Option>
-          <Option value="subtask">Subtask</Option>
+          {taskTypes.map((taskType) => (
+            <Option key={taskType.value} value={taskType.value}>
+              {taskType.label}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
-      <Form.Item label="Task Name" name="name" rules={[{ required: true, message: 'Task Name is required' }]}>
+      <Form.Item
+        label="Task Name"
+        name="name"
+        rules={[{ required: true, message: 'Task Name is required' }]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Description is required' }]}>
+      <Form.Item
+        label="Description"
+        name="description"
+        rules={[{ required: true, message: 'Description is required' }]}
+      >
         <Input.TextArea rows={4} />
       </Form.Item>
     </Form>

@@ -27,23 +27,23 @@ const useTask = (taskId?: string) => {
           const taskData = await fetchTaskDetails(Number(taskId)); // Make sure taskId is passed correctly
           console.log('Fetched task data:', taskData); // Debug log
       
-          if (taskData.success) {
-            const task = taskData.data;
+          if (taskData) {
+            const task = taskData; // Directly use taskData as the task object
             setFormData({
               name: task.name || '',
               description: task.description || '',
-              type: task.type || '',
+              type: task.type_id || '',
             });
             setDetails({
-              status: task.status || 'New',
-              priority: task.priority || 'Normal',
-              assignee: task.assignee || '',
-              startDate: task.startDate ? dayjs(task.startDate) : null,
-              endDate: task.endDate ? dayjs(task.endDate) : null,
-              labels: task.labels || [],
-              estimatedTime: task.estimatedTime || null,
+              status: task.status_id || 'New',
+              priority: task.priority_id || 'Normal',
+              // assignee: task.assignee || '', // Replace with the correct property if available
+              startDate: task.time_start ? dayjs(task.time_start) : null,
+              endDate: task.time_stop ? dayjs(task.time_stop) : null,
+              labels: task.label_id || [],
+              // estimatedTime: task.estimatedTime || null, // Replace with the correct property if available
             });
-            setComments(task.comments || []);
+            // setComments(task.comments || []); // Replace with the correct property if available
           } else {
             message.error('Không thể tải thông tin task');
           }
@@ -77,7 +77,7 @@ const useTask = (taskId?: string) => {
       }
   
       // Redirect to home after success
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error('Lỗi khi lưu thông tin:', error);
       message.error('Lưu thông tin thất bại!');
