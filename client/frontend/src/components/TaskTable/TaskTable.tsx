@@ -166,7 +166,11 @@ const TaskTable = ({
     },
   ];
 
-  return <Table columns={columns} dataSource={tasks} rowKey="id" bordered />;
+  return <Table columns={columns} dataSource={tasks} rowKey="id" bordered 
+  pagination={{
+    pageSize: 10, 
+    showSizeChanger: true, 
+    pageSizeOptions: ['5', '10', '20', '50'],}}/>;
 };
 
 export default TaskTable;

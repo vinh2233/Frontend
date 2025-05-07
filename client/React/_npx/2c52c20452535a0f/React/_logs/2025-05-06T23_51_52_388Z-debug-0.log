@@ -7,8 +7,8 @@
 6 silly config load:file:d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\etc\npmrc
 7 verbose title npm i
 8 verbose argv "i" "--package-lock-only" "--prefix" "d:/DigiTechSolutions/22april_task_CRUD/client/React/_npx/2c52c20452535a0f"
-9 verbose logfile logs-max:10 dir:d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-04-24T06_23_38_134Z-
-10 verbose logfile d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-04-24T06_23_38_134Z-debug-0.log
+9 verbose logfile logs-max:10 dir:d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-05-06T23_51_52_388Z-
+10 verbose logfile d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-05-06T23_51_52_388Z-debug-0.log
 11 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
 12 silly logfile start cleaning logs, removing 1 files
 13 silly logfile done cleaning log files
@@ -64,14 +64,14 @@
 17 verbose stack     at async Npm.exec (C:\Users\LENOVO\AppData\Local\nvm\v18.20.8\node_modules\npm\lib\npm.js:207:9)
 17 verbose stack     at async module.exports (C:\Users\LENOVO\AppData\Local\nvm\v18.20.8\node_modules\npm\lib\cli\entry.js:74:5)
 18 error Cannot read properties of undefined (reading 'spec')
-19 silly unfinished npm timer reify 1745475825763
-20 silly unfinished npm timer reify:audit 1745475825842
-21 silly unfinished npm timer auditReport:getReport 1745475825842
-22 silly unfinished npm timer reify:save 1745475825852
+19 silly unfinished npm timer reify 1746575536206
+20 silly unfinished npm timer reify:audit 1746575536377
+21 silly unfinished npm timer auditReport:getReport 1746575536377
+22 silly unfinished npm timer reify:save 1746575536416
 23 verbose cwd d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f
 24 verbose os Windows_NT 10.0.22631
 25 verbose node v18.20.8
 26 verbose npm  v10.8.2
 27 verbose exit 1
 28 verbose code 1
-29 error A complete log of this run can be found in: d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-04-24T06_23_38_134Z-debug-0.log
+29 error A complete log of this run can be found in: d:\DigiTechSolutions\22april_task_CRUD\client\React\_npx\2c52c20452535a0f\React\_logs\2025-05-06T23_51_52_388Z-debug-0.log
